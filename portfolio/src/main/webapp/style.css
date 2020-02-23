@@ -3,6 +3,12 @@
   margin-right: auto;
   width: 650px;
 }
+body {
+  background-image: url("images/Greywatercolor.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
 h1{
     text-align: center;
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
