@@ -41,7 +41,7 @@ function addRandomQuote() {
   const quote = B99Quotes[Math.floor(Math.random() * B99Quotes.length)];
 
   // Add it to the page.
-  const quoteContainer = document.getElementById('quote-container');
-  quoteContainer.innerText = quote;
+  document.getElementById('quote-container').innerText = quote;
+  
 }
 

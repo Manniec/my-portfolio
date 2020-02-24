@@ -3,16 +3,19 @@
   margin-right: auto;
   width: 650px;
 }
+
 body {
   background-image: url("images/Greywatercolor.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
 }
+
 h1{
     text-align: center;
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
+
 .nav {
   text-align: center;
 }
@@ -22,6 +25,7 @@ h1{
   font-size: 20px;
   padding: 0px;
 }
+
 .nav li a {
   display: block;
   color: black;
@@ -32,6 +36,7 @@ h1{
 .nav li a:hover {
   background-color: grey;
 }
+
 .active {
   background-color: blue;
 }
