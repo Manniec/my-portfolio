@@ -92,10 +92,13 @@ function addQuoteToDom(quote) {
 }
 **/
 
-function getHello() {
-    //fetch dataservlet "Hello Mannie!", returns a promise
-    fetch('/hello').then(response => response.text()).then((quote) => {
-        document.getElementById('hello-container').innerText = quote;
-    });
+async function getHello() {
+    //b99 quotes but from servlet instead of just js.
+    const response = await fetch('/hello');
+    console.log('Fetching hello mannie text.');
+    const quote = await response.text();
+    console.log('Adding quote to dom: ' + quote);
+    document.getElementById('hello-container').innerHTML = quote;
+
 }
 
