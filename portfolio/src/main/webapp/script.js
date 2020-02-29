@@ -16,8 +16,11 @@
  * Adds a random greeting to the page.
  */
 function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+  const greetings = [
+      'Hello world!', 
+      '¡Hola Mundo!', 
+      '你好，世界！', 
+      'Bonjour le monde!'];
 
   // Pick a random greeting.
   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
@@ -26,3 +29,19 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
+//Add random quote
+function addRandomQuote() {
+  const B99Quotes = [
+      '"If I die, turn my tweets into a book." -Gina Linetti', 
+      '"The English language can not fully capture the depth and complexity of my thoughts, so I’m incorporating emojis into my speech to better express myself. Winky face." - Ginna Linetti', 
+      '"I have zero interest in food. If it were feasible, my diet would consist entirely of flavorless beige smoothies containing all the nutrients required by the human animal." - Captain Ray Holt', 
+      '"I only have one dream a year, always on Tax Day. In it, I must file an extension. So, yes, it is best not to have dreams." - Captian Ray Holt'];
+
+  // Pick a random greeting.
+  const quote = B99Quotes[Math.floor(Math.random() * B99Quotes.length)];
+
+  // Add it to the page.
+  document.getElementById('quote-container').innerText = quote;
+  
+}
+

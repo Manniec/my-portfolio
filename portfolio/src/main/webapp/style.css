@@ -1,9 +1,59 @@
-#content {
+body { /*page background*/
+  background-image: url("images/Greywatercolor.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+h1{ /*title text*/
+    text-align: center;
+    font-family: 'Prata', serif ;
+}
+
+#content {/*index content formating*/
   margin-left: auto;
   margin-right: auto;
   width: 650px;
 }
 
-#greeting-container {
+.nav { /*entire nav bar*/
+  text-align: center;
+}
+
+.nav li { /* item in in nav*/
+  display: inline-block;
+}
+
+.nav li a { /*link in nav*/
+  display: block;
+  color: black;
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  padding: 14px 30px;
+  text-decoration: none;
+}
+.nav li a:hover { /*hover over nav bar link*/
+  text-decoration: underline;
+}
+
+.active {/*current page identifier*/
+  background-color: gray;
+  color: white;
+}
+
+.image-thumbnails { /*gallery image formating*/
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.image-thumbnails img { /*individual gallery image formating*/
+  margin: 10px;
+  max-height: 200px;
+  max-width: 200px;
+}
+
+#quote-container { /*js. greeting containter*/
   margin-top: 20px;
 }
