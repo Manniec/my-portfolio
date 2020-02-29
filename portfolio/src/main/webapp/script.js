@@ -41,7 +41,61 @@ function addRandomQuote() {
   const quote = B99Quotes[Math.floor(Math.random() * B99Quotes.length)];
 
   // Add it to the page.
-  document.getElementById('quote-container').innerText = quote;
+  document.getElementById('quote-container1').innerText = quote;
   
+}
+
+
+async function getB99QuoteServlet() {
+    //b99 quotes but from servlet instead of just js.
+    const response = await fetch('/b99');
+    console.log('Fetching a random quote.');
+    const quote = await response.text();
+    console.log('Adding quote to dom: ' + quote);
+    document.getElementById('quote-container2').innerText = quote;
+
+}
+
+/** 
+// Counsel log for debugging fetch request
+function getB99QuoteServlet() {
+  console.log('Fetching a random quote.');
+
+  // The fetch() function returns a Promise because the request is asynchronous.
+  const responsePromise = fetch('/b99');
+
+  // When the request is complete, pass the response into handleResponse().
+  responsePromise.then(handleResponse);
+}
+
+/**
+ * Handles response by converting it to text and passing the result to
+ * addQuoteToDom().
+ 
+function handleResponse(response) {
+  console.log('Handling the response.');
+
+  // response.text() returns a Promise, because the response is a stream of
+  // content and not a simple variable.
+  const textPromise = response.text();
+
+  // When the response is converted to text, pass the result into the
+  // addQuoteToDom() function.
+  textPromise.then(addQuoteToDom);
+}
+
+// Adds a random quote to the DOM. 
+function addQuoteToDom(quote) {
+  console.log('Adding quote to dom: ' + quote);
+
+  const quoteContainer = document.getElementById('quote-container2').innerText = quote;
+}
+**/
+
+function getHello() {
+    //fetch dataservlet "Hello Mannie!", returns a promise
+    fetch('/hello').then(response => response.text()).then((quote) => {
+        document.getElementById('hello-container').innerText = quote;
+    });
 }
 

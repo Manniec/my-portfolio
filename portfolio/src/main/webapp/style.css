@@ -54,6 +54,14 @@ h1{ /*title text*/
   max-width: 200px;
 }
 
-#quote-container { /*js. greeting containter*/
+#quote-container1 { /*js. greeting containter*/
+  margin-top: 20px;
+}
+
+#quote-container2 { /*js. greeting containter*/
+  margin-top: 20px;
+}
+
+#hello-container { /*js. greeting containter*/
   margin-top: 20px;
 }
