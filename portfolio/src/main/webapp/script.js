@@ -103,16 +103,37 @@ async function getHello() {
 }
 
 //for parse json test
-async function getData() {
+async function getComments() {
     //b99 quotes but from servlet instead of just js.
     console.log('Fetching data json.');
     const response = await fetch('/data');
     console.log('Parsing json:');
-    const strings = await response.json();
-    console.log('Selecting Random string:');
-    const outString = strings[Math.floor(Math.random() * strings.length)];
-    console.log('Outputing string:'+ outString);
-    document.getElementById('data-container').innerText = outString;
+    const comments = await response.json();
+    console.log(comments);
+    const commentList = document.getElementById('data-list');
+    comments.forEach(element => commentList.appendChild(createDataElement(element)));
+}
 
+function createDataElement(element) {
+  const dataElement = document.createElement('li');
+  dataElement.className = 'comment';
+
+  const textElement = document.createElement('span');
+  textElement.innerText = element.text;
+
+  /*
+  const deleteButtonElement = document.createElement('button');
+  deleteButtonElement.innerText = 'Delete';
+  deleteButtonElement.addEventListener('click', () => {
+    deleteTask(task);
+
+    // Remove the task from the DOM.
+    taskElement.remove();
+  });
+  */
+
+  dataElement.appendChild(textElement);
+  //taskElement.appendChild(deleteButtonElement);
+  return dataElement;
 }
 

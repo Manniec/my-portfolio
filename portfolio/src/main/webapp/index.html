@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Prata&display=swap" rel="stylesheet">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="getComments()">
         <h1>Mannie's Portfolio</h1>
         <ul class="nav">
             <li><a class="active" href="index.html">Home</a></li>
@@ -33,13 +33,16 @@
 
       <button onclick="getData()"> Log Json to Console</button>
       <div id="data-container"></div>
-
+      
+      <!--comments-->
       <h1>Comments</h1>
       <form action="/data" method="POST">
         <textarea name="comment-input">one, two, three</textarea>
         <br/><br/>
         <input type="submit" />
       </form>
+      <!--list comments-->
+      <ul id="data-list"></ul>
 
     </div>
   </body>
