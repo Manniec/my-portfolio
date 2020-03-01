@@ -102,3 +102,17 @@ async function getHello() {
 
 }
 
+//for parse json test
+async function getData() {
+    //b99 quotes but from servlet instead of just js.
+    console.log('Fetching data json.');
+    const response = await fetch('/data');
+    console.log('Parsing json:');
+    const strings = await response.json();
+    console.log(strings[0]);
+    console.log(strings[1]);
+    console.log(strings[2]);
+    //document.getElementById('hello-container').innerText = quote;
+
+}
+
