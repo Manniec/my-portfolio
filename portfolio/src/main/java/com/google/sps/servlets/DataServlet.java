@@ -15,9 +15,18 @@
 package com.google.sps.servlets;
 
 import java.io.IOException;
+//for formating json
 import com.google.gson.Gson;
+//for datastore nosql
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+/*
+//for array lists
 import java.util.ArrayList;
 import java.util.List;
+*/
+//for webservelts/get/post 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,11 +35,10 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-
+    /*
     private List<String> strings;
 
     //make array of hardcoded strings
-
     @Override
     public void init() {
         strings = new ArrayList<>();
@@ -38,6 +46,7 @@ public class DataServlet extends HttpServlet {
         strings.add("My Name is Mannie");
         strings.add("Testing 1, 2, 3");
     }
+    
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -48,11 +57,28 @@ public class DataServlet extends HttpServlet {
         response.setContentType("application/json;");
         response.getWriter().println(json);
     }
+    */
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //get text from form by id
         String newComment = request.getParameter("comment-input");
+        //timestamp
+        long timestamp = System.currentTimeMillis();
+
+        /* //add text to ArrayList
         strings.add(newComment);
+        */
+
+        Entity commentEntity = new Entity("Comments");
+        commentEntity.setProperty("timestamp", timestamp);
+        commentEntity.setProperty("text", newComment);
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        datastore.put(commentEntity);
+
+
+        //return to page
         response.sendRedirect("/index.html");
 
     }
