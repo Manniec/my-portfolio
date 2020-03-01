@@ -109,10 +109,10 @@ async function getData() {
     const response = await fetch('/data');
     console.log('Parsing json:');
     const strings = await response.json();
-    console.log(strings[0]);
-    console.log(strings[1]);
-    console.log(strings[2]);
-    //document.getElementById('hello-container').innerText = quote;
+    console.log('Selecting Random string:');
+    const outString = strings[Math.floor(Math.random() * strings.length)];
+    console.log('Outputing string:'+ outString);
+    document.getElementById('data-container').innerText = outString;
 
 }
 

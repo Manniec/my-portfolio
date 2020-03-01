@@ -65,3 +65,7 @@ h1{ /*title text*/
 #hello-container { /*js. greeting containter*/
   margin-top: 20px;
 }
+
+#data-container { /*json parsing output*/
+  margin-top: 20px;
+}
