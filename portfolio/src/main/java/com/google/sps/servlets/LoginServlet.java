@@ -17,16 +17,41 @@ import com.google.appengine.api.datastore.Query;
 //for user API
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+//formating json
+import com.google.gson.Gson;
 
 @WebServlet("/loginstat")
 public class LoginServlet extends HttpServlet {
 
+     public final class Login {
+        private boolean loggedIn; //is user logged-in
+        private String email;
+        private String username;
+
+        public Login(boolean logstat, String userEmail, String userName) {
+            this.loggedIn = logstat;
+            this.email = userEmail;
+            this.username = userName;
+        }
+    }
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //set response to html first
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
+        //set response to json
+        response.setContentType("application/json;");
 
+        UserService userService = UserServiceFactory.getUserService();
+        Login userlogstat = new Login(false, "", "");
+        if (userService.isUserLoggedIn()) {
+            String email = userService.getCurrentUser().getEmail();
+            String username = getUsername(userService.getCurrentUser().getUserId());
+            userlogstat = new Login(true, email, username);
+        }
+        //convert login status to json
+        String json = new Gson().toJson(userlogstat);
+        response.getWriter().println(json);
+
+        /*
         UserService userService = UserServiceFactory.getUserService();//user login api
         if (userService.isUserLoggedIn()) {
             String username = getUsername(userService.getCurrentUser().getUserId());
@@ -43,6 +68,8 @@ public class LoginServlet extends HttpServlet {
             String loginUrl = userService.createLoginURL("/loginstat");
             out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
         }
+        */
+        
     }
     /*
     @Override
