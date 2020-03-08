@@ -104,15 +104,12 @@ async function getHello() {
 
 //for parse json test
 async function getComments() {
-    //b99 quotes but from servlet instead of just js.
     console.log('checking if logged in:');
-    const loginresponse = await fetch('/loginstat');
-    const login = await loginresponse.json();
-    console.log(login); 
+    //set response to var login, then get json from it and set that to login
+    const login = await fetch('/loginstat').then(login => login.json());
+    console.log(login); //output to console json object
     console.log('Fetching comment json.');
-    const commentresponse = await fetch('/data');
-    console.log('Parsing json:');
-    const comments = await commentresponse.json();
+    const comments = await fetch('/data').then(comments => comments.json());
     console.log(comments);
     const commentList = document.getElementById('data-list');
     comments.forEach(element => commentList.appendChild(createDataElement(element)));
