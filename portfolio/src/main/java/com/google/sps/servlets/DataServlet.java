@@ -33,6 +33,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+//for user API
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -108,10 +111,6 @@ public class DataServlet extends HttpServlet {
         String newComment = request.getParameter("comment-input");
         //timestamp
         long timestamp = System.currentTimeMillis();
-
-        /* //add text to ArrayList
-        strings.add(newComment);
-        */
 
         //create entity type of comments with parts .timestamp and .text
         Entity commentEntity = new Entity("Comments");

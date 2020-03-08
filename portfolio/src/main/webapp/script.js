@@ -108,6 +108,13 @@ async function getComments() {
     //set response to var login, then get json from it and set that to login
     const login = await fetch('/loginstat').then(login => login.json());
     console.log(login); //output to console json object
+    if(login.loggedIn){ //check if log in comparison works
+        console.log('logged-in');
+ 
+    }else{
+        console.log('not logged-in');
+        document.getElementById('comment-form') = 'log in to comment';
+    }
     console.log('Fetching comment json.');
     const comments = await fetch('/data').then(comments => comments.json());
     console.log(comments);
