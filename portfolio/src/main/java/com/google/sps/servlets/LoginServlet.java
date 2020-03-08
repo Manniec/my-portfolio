@@ -28,11 +28,24 @@ public class LoginServlet extends HttpServlet {
         private String email;
         private String username;
 
+        public Login(){
+            this.loggedIn = false;
+            this.email = "";
+            this.username = "";
+        }
+        public void setTrue(String userEmail, String userName) {
+            this.loggedIn = true;
+            this.email = userEmail;
+            this.username = userName;
+        }
+        /*
         public Login(boolean logstat, String userEmail, String userName) {
             this.loggedIn = logstat;
             this.email = userEmail;
             this.username = userName;
         }
+        */
+       
     }
 
     @Override
@@ -41,17 +54,18 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("application/json;");
 
         UserService userService = UserServiceFactory.getUserService();
-        Login userlogstat = new Login(false, "", "");
+        Login userlogstat = new Login();
         if (userService.isUserLoggedIn()) {
             String email = userService.getCurrentUser().getEmail();
             String username = getUsername(userService.getCurrentUser().getUserId());
-            userlogstat = new Login(true, email, username);
+            userlogstat.setTrue(email, username);
         }
         //convert login status to json
         String json = new Gson().toJson(userlogstat);
         response.getWriter().println(json);
 
         /*
+        response.setContentType("text/html");
         UserService userService = UserServiceFactory.getUserService();//user login api
         if (userService.isUserLoggedIn()) {
             String username = getUsername(userService.getCurrentUser().getUserId());
