@@ -129,7 +129,7 @@ function createDataElement(element) {
   dataElement.className = 'comment';
 
   const textElement = document.createElement('span');
-  textElement.innerText = element.text;
+  textElement.innerText = '\"'+ element.text + '\" posted by:' + element.email;
 
   /*
   const deleteButtonElement = document.createElement('button');

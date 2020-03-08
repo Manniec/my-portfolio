@@ -69,11 +69,13 @@ public class DataServlet extends HttpServlet {
         private final long id; //unique key from datastore
         private String text;
         private long timestamp;
+        private String email;
 
-        public Comment(long id, String text, long timestamp) {
+        public Comment(long id, String text, long timestamp, String email) {
             this.id = id;
             this.text = text;
             this.timestamp = timestamp;
+            this.email = email;
         }
     }
    
@@ -91,9 +93,10 @@ public class DataServlet extends HttpServlet {
             long id = entity.getKey().getId(); 
             String text = (String) entity.getProperty("text");
             long timestamp = (long) entity.getProperty("timestamp");
+            String email = (String) entity.getProperty("email");
 
             //make new comment and add to list of comments
-            Comment comment = new Comment(id, text, timestamp);
+            Comment comment = new Comment(id, text, timestamp, email);
             listComments.add(comment);
         }
 
@@ -111,11 +114,15 @@ public class DataServlet extends HttpServlet {
         String newComment = request.getParameter("comment-input");
         //timestamp
         long timestamp = System.currentTimeMillis();
+        //instance of login api
+        UserService userService = UserServiceFactory.getUserService();
+        String email = userService.getCurrentUser().getEmail();
 
         //create entity type of comments with parts .timestamp and .text
         Entity commentEntity = new Entity("Comments");
         commentEntity.setProperty("timestamp", timestamp);
         commentEntity.setProperty("text", newComment);
+        commentEntity.setProperty("email", email);
 
         //instance of access datastore
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
