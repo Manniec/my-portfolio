@@ -110,10 +110,12 @@ async function getComments() {
     console.log(login); //output to console json object
     if(login.loggedIn){ //check if log in comparison works
         console.log('logged-in');
+        document.getElementById('comment-form').innerHTML = '<form action=\"/data\" method=\"POST\"><textarea name=\"comment-input\">one, two, three</textarea><br/><br/><input type=\"submit\"/></form><p>Logout <a href=\"' + login.url + '\">here</a>.</p>';
  
     }else{
         console.log('not logged-in');
-        document.getElementById('comment-form') = 'log in to comment';
+        document.getElementById('comment-form').innerHTML = '<p><a href=\"' + login.url + '\">Login</a> to leave comments.</p>';
+
     }
     console.log('Fetching comment json.');
     const comments = await fetch('/data').then(comments => comments.json());

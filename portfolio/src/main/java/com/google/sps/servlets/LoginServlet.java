@@ -27,16 +27,22 @@ public class LoginServlet extends HttpServlet {
         private boolean loggedIn; //is user logged-in
         private String email;
         private String username;
+        private String url;
 
         public Login(){
             this.loggedIn = false;
             this.email = "";
             this.username = "";
+            this.url = "";
         }
-        public void setTrue(String userEmail, String userName) {
+        public void setLoggedIn(String userEmail, String userName, String logouturl) {
             this.loggedIn = true;
             this.email = userEmail;
             this.username = userName;
+            this.url = logouturl;
+        }
+        public void setLogoutURL(String logouturl){
+            this.url = logouturl;
         }
         /*
         public Login(boolean logstat, String userEmail, String userName) {
@@ -58,7 +64,11 @@ public class LoginServlet extends HttpServlet {
         if (userService.isUserLoggedIn()) {
             String email = userService.getCurrentUser().getEmail();
             String username = getUsername(userService.getCurrentUser().getUserId());
-            userlogstat.setTrue(email, username);
+            String logoutUrl = userService.createLogoutURL("/");
+            userlogstat.setLoggedIn(email, username, logoutUrl);
+        }else{
+            String logoutUrl = userService.createLoginURL("/");
+            userlogstat.setLogoutURL(logoutUrl);
         }
         //convert login status to json
         String json = new Gson().toJson(userlogstat);
