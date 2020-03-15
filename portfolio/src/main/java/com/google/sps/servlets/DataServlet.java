@@ -41,27 +41,6 @@ import com.google.appengine.api.users.UserServiceFactory;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    /* LOADS HARD CODED ARRAYLIST
-    private List<String> strings;
-
-    //make array of hardcoded strings
-    @Override
-    public void init() {
-        strings = new ArrayList<>();
-        strings.add("Hello World!");
-        strings.add("My Name is Mannie");
-        strings.add("Testing 1, 2, 3");
-    }
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //convert to json
-        String json = new Gson().toJson(strings);
-        
-        //set to return json
-        response.setContentType("application/json;");
-        response.getWriter().println(json);
-    }
-    */
     //Loads Entities from Datastore
 
     //build java struct/class for comments
@@ -133,7 +112,8 @@ public class DataServlet extends HttpServlet {
         response.sendRedirect("/index.html");
 
     }
-    
 }
+    
+
 
 
