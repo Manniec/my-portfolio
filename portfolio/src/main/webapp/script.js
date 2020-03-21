@@ -56,42 +56,6 @@ async function getB99QuoteServlet() {
 
 }
 
-/** 
-// Counsel log for debugging fetch request
-function getB99QuoteServlet() {
-  console.log('Fetching a random quote.');
-
-  // The fetch() function returns a Promise because the request is asynchronous.
-  const responsePromise = fetch('/b99');
-
-  // When the request is complete, pass the response into handleResponse().
-  responsePromise.then(handleResponse);
-}
-
-/**
- * Handles response by converting it to text and passing the result to
- * addQuoteToDom().
- 
-function handleResponse(response) {
-  console.log('Handling the response.');
-
-  // response.text() returns a Promise, because the response is a stream of
-  // content and not a simple variable.
-  const textPromise = response.text();
-
-  // When the response is converted to text, pass the result into the
-  // addQuoteToDom() function.
-  textPromise.then(addQuoteToDom);
-}
-
-// Adds a random quote to the DOM. 
-function addQuoteToDom(quote) {
-  console.log('Adding quote to dom: ' + quote);
-
-  const quoteContainer = document.getElementById('quote-container2').innerText = quote;
-}
-**/
-
 async function getHello() {
     //b99 quotes but from servlet instead of just js.
     const response = await fetch('/hello');
@@ -104,11 +68,21 @@ async function getHello() {
 
 //for parse json test
 async function getComments() {
-    //b99 quotes but from servlet instead of just js.
-    console.log('Fetching data json.');
-    const response = await fetch('/data');
-    console.log('Parsing json:');
-    const comments = await response.json();
+    console.log('checking if logged in:');
+    //set response to var login, then get json from it and set that to login
+    const login = await fetch('/loginstat').then(login => login.json());
+    console.log(login); //output to console json object
+    if(login.loggedIn){ //check if log in comparison works
+        console.log('logged-in');
+        document.getElementById('comment-form').innerHTML = '<form action=\"/data\" method=\"POST\"><textarea name=\"comment-input\">one, two, three</textarea><br/><br/><input type=\"submit\"/></form><p>Logout <a href=\"' + login.url + '\">here</a>.</p>';
+ 
+    }else{
+        console.log('not logged-in');
+        document.getElementById('comment-form').innerHTML = '<p><a href=\"' + login.url + '\">Login</a> to leave comments.</p>';
+
+    }
+    console.log('Fetching comment json.');
+    const comments = await fetch('/data').then(comments => comments.json());
     console.log(comments);
     const commentList = document.getElementById('data-list');
     comments.forEach(element => commentList.appendChild(createDataElement(element)));
@@ -119,7 +93,7 @@ function createDataElement(element) {
   dataElement.className = 'comment';
 
   const textElement = document.createElement('span');
-  textElement.innerText = element.text;
+  textElement.innerText = '\"'+ element.text + '\" posted by:' + element.email;
 
   /*
   const deleteButtonElement = document.createElement('button');

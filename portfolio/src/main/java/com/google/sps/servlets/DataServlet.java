@@ -33,32 +33,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+//for user API
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    /* LOADS HARD CODED ARRAYLIST
-    private List<String> strings;
-
-    //make array of hardcoded strings
-    @Override
-    public void init() {
-        strings = new ArrayList<>();
-        strings.add("Hello World!");
-        strings.add("My Name is Mannie");
-        strings.add("Testing 1, 2, 3");
-    }
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //convert to json
-        String json = new Gson().toJson(strings);
-        
-        //set to return json
-        response.setContentType("application/json;");
-        response.getWriter().println(json);
-    }
-    */
     //Loads Entities from Datastore
 
     //build java struct/class for comments
@@ -66,11 +48,13 @@ public class DataServlet extends HttpServlet {
         private final long id; //unique key from datastore
         private String text;
         private long timestamp;
+        private String email;
 
-        public Comment(long id, String text, long timestamp) {
+        public Comment(long id, String text, long timestamp, String email) {
             this.id = id;
             this.text = text;
             this.timestamp = timestamp;
+            this.email = email;
         }
     }
    
@@ -88,9 +72,10 @@ public class DataServlet extends HttpServlet {
             long id = entity.getKey().getId(); 
             String text = (String) entity.getProperty("text");
             long timestamp = (long) entity.getProperty("timestamp");
+            String email = (String) entity.getProperty("email");
 
             //make new comment and add to list of comments
-            Comment comment = new Comment(id, text, timestamp);
+            Comment comment = new Comment(id, text, timestamp, email);
             listComments.add(comment);
         }
 
@@ -108,15 +93,15 @@ public class DataServlet extends HttpServlet {
         String newComment = request.getParameter("comment-input");
         //timestamp
         long timestamp = System.currentTimeMillis();
-
-        /* //add text to ArrayList
-        strings.add(newComment);
-        */
+        //instance of login api
+        UserService userService = UserServiceFactory.getUserService();
+        String email = userService.getCurrentUser().getEmail();
 
         //create entity type of comments with parts .timestamp and .text
         Entity commentEntity = new Entity("Comments");
         commentEntity.setProperty("timestamp", timestamp);
         commentEntity.setProperty("text", newComment);
+        commentEntity.setProperty("email", email);
 
         //instance of access datastore
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -127,7 +112,8 @@ public class DataServlet extends HttpServlet {
         response.sendRedirect("/index.html");
 
     }
-    
 }
+    
+
 
 
